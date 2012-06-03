@@ -11,6 +11,16 @@ class svgClass{
         $var = $this->configureSVG($var);
         return $var;
     }
+    
+    public function drawMultiple($array, $x_translate = "0", $y_translate = "0", $scale = "1"){
+        $var = "";
+        foreach($array as $arrs){
+            foreach($arrs as $arr)
+                $var .= $this->configureGroup($arr, $x_translate, $y_translate, $scale);
+        }
+        $var = $this->configureSVG($var);
+        return $var;
+    }
 
 
     //(V) Esta funcao sera chamada para cada linha da coluna retornada no passo III, colocando os resultados em um array

@@ -68,3 +68,11 @@ function atualiza(atualiza){
     });
 
 }
+
+$('#merge').live('click', function(){
+    var varr = 'merge.php?action=merge&consult=';
+    $('.ativo').each(function(index) {
+        varr += $(this).parent().attr('href') + ";";
+    });
+    $(this).attr('href', varr);
+});

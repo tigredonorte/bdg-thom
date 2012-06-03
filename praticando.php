@@ -25,8 +25,11 @@ require_once 'init.php';
                         <div>
                             Opções
                             <div id="opcoes">
+                                
                                 <a href="?action=getlink" id="getlink"><img src='img/link.png' alt="link"/></a>
-                                <a href="?action=merge" id="merge"><img src='img/merge.png'/></a>
+                                <?php if(geografico){ ?><a href="merge.php?action=merge" target="__blank" id="merge">
+                                    <img src='img/merge.png'/></a>
+                                <?php }?>
                             </div>
                         </div>
                         <ul id="sortable">
@@ -58,15 +61,17 @@ require_once 'init.php';
                 <div id="tabs">
                     <ul>
                         <li><a class='tablink' href="#tabs-1">Resultado</a></li>
-                        <li><a class='tablink' href="#tabs-2">Mapa</a></li>
+                        <?php if(geografico){?><li><a class='tablink' href="#tabs-2">Mapa</a></li><?php }?>
                         <li><a class='tablink' href="#tabs-3">Schema</a></li>
                     </ul>
                     <div id="tabs-1">
                         <div id="mainlayer" class="mainlayer border bg"><table></table><?php if(isset($result)) echo $result; ?></div>
                     </div>
+                    <?php if(geografico){ ?>
                     <div id="tabs-2">
                         <div id="maps" class="mainlayer border bg"><?php if(isset($map)) echo $map; ?></div>
                     </div>
+                    <?php }?>
                     <div id="tabs-3">
                         <div id="schema" class="mainlayer border bg"><?php if(isset($schema)) echo $schema; ?></div>
                     </div>

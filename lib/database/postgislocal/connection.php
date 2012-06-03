@@ -1,10 +1,10 @@
 <?php
 
     define('bd_dns'     , "pgsql");
-    define("bd_name"    , "hat");
+    define("bd_name"    , "brasil");
     define("bd_server"  , "localhost");
     define("bd_user"    , "postgres");
-    define("bd_password", "2");
+    define("bd_password", "postgres");
     define("bd_port"    , "5432");
     define("geografico" , true);
     

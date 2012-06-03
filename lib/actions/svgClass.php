@@ -2,28 +2,25 @@
 
 class svgClass{
     
-    public function draw($array){
-        
+	public function draw($array, $x_translate = "0", $y_translate = "0", $scale = "1"){
         $var = "";
         foreach($array as $arr){
-            $var .= $this->configureGroup($arr);
+            $var .= $this->configureGroup($arr, 300, 100, 4);
         }
         $var = $this->configureSVG($var);
         return $var;
     }
 
     //(V) Esta funcao sera chamada para cada linha da coluna retornada no passo III, colocando os resultados em um array
-    public function configurePath($path, $stroke = "", $stroke_width = "100%", $fill="no-fill", $opacity="1.0"){
+    public function configurePath($path, $stroke = "black", $stroke_width = "0.005cm", $stroke_opacity="1.0", $fill="none", $fill_opacity="0.0"){
             static $id = 0;
             $id += 1;
-            return "<path id='$id' stroke='$stroke' stroke-width='$stroke_width' fill='$fill' fill-opacity='0.0'
-            stroke-opacity='$opacity' d='$path' />";
+            return "<path id=\"$id\" stroke=\"$stroke\" stroke-width=\"$stroke_width\" stroke-opacity=\"$stroke_opacity\" fill=\"$fill\" fill-opacity=\"$fill_opacity\" d=\"$path\" />";
     }
 
     //(VI) Esta funcao sera chamada apos todas as linhas retornadas no passo V terem sido colocadas no array $path_array
-    public function configureGroup($path_array, $x_translate = "", $y_translate = "", $scale = ""){
-            //$result = "<g transform=\"translate('$x_translate','$y_translate') scale('$scale')\"> ";
-            $result = "<g>";
+    public function configureGroup($path_array, $x_translate = "0", $y_translate = "0", $scale = "1"){
+            $result = "<g transform=\"translate($x_translate,$y_translate) scale($scale)\"> ";
             foreach($path_array as $path){
                 //$result .= $path;
                 $result .= $this->configurePath($path);

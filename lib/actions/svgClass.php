@@ -5,7 +5,7 @@ class svgClass{
 	public function draw($array, $x_translate = "0", $y_translate = "0", $scale = "1"){
         $var = "";
         foreach($array as $arr){
-            $var .= $this->configureGroup($arr, 300, 100, 4);
+            $var .= $this->configureGroup($arr, $x_translate, $y_translate, $scale);
         }
         $var = $this->configureSVG($var);
         return $var;

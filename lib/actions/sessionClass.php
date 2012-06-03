@@ -74,7 +74,7 @@ class sessionClass{
         $var = $this->mcons->getFirstMap();
         if(is_array($var)){
             if(!empty ($var)){
-                $var = $this->svg->draw($var, 300, 100, 2);
+                $var = $this->svg->draw($var, 300, 100, 4);
             }else $var = "";
         }
         return $var;

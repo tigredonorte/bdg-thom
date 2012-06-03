@@ -110,7 +110,7 @@ class sessionClass{
     }
     
     public function genSchema(){
-        //if(isset($_SESSION['schema'])) return $_SESSION['schema'];        
+        if(isset($_SESSION['schema'])) return $_SESSION['schema'];        
         $schema = $this->sql->getSchema();
         $html   = "";
         if(is_array($schema)){

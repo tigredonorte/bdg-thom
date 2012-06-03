@@ -5,8 +5,8 @@ class tableClass {
     public function draw($center, $id = ""){
 
         if(!is_array($center) || empty ($center)) return;
-
         $var = end($center);
+        $header = array();
         foreach($var as $name => $value)  $header[] = $name;
         $footer = $header;
         

@@ -31,9 +31,23 @@ class Consult{
         
     }
     
+    public function loadAllConsult(){
+        $var = array_reverse($_SESSION[$this->session]);
+        $out = array();
+        foreach($var as $arr){
+            $out[] = $arr['resultado'];
+        }
+        return $out;
+    }
+    
     public function loadConsult($consulta){
         if(!array_key_exists($consulta, $_SESSION[$this->session])) return "";
         return $this->uncompress($_SESSION[$this->session][$consulta]['resultado']);
+    }
+    
+    public function loadMap($consulta){
+        //if(!array_key_exists($consulta, $_SESSION[$this->session])) return array();
+        return $this->uncompress($_SESSION[$this->session][$consulta]['mapa']);
     }
     
     public function toFirst($consulta){

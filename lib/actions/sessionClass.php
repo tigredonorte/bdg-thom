@@ -13,6 +13,18 @@ class sessionClass{
  
     }
     
+    public function merge(){
+        $consult = explode(";", $_GET['consult']);
+        array_pop($consult);
+        
+        $map = array();
+        foreach($consult as $cons)
+            $map[] = $this->mcons->loadMap($cons);
+        
+        $var = $this->svg->drawMultiple($map);
+        die($var);
+    }
+    
     //se uma consulta foi enviada e ainda não foi feita salva a consulta
     public function consultar(){
 

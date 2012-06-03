@@ -2,7 +2,8 @@
 
 class svgClass{
     
-	public function draw($array, $x_translate = "0", $y_translate = "0", $scale = "1"){
+
+    public function draw($array, $x_translate = "0", $y_translate = "0", $scale = "1"){
         $var = "";
         foreach($array as $arr){
             $var .= $this->configureGroup($arr, $x_translate, $y_translate, $scale);
@@ -10,6 +11,7 @@ class svgClass{
         $var = $this->configureSVG($var);
         return $var;
     }
+
 
     //(V) Esta funcao sera chamada para cada linha da coluna retornada no passo III, colocando os resultados em um array
     public function configurePath($path, $stroke = "black", $stroke_width = "0.005cm", $stroke_opacity="1.0", $fill="none", $fill_opacity="0.0"){
@@ -74,9 +76,11 @@ class svgClass{
                 $result['mapa'] = $sql->consultar("SELECT ST_ASSVG($result_parcial, 1) as svg FROM $tabela_temporaria;");
                 $sql->consultar("DROP TABLE IF EXISTS $tabela_temporaria;");
                 
-                //remove a coluna geometrica
-                foreach($result['res'] as &$t){
-                    if(array_key_exists($result_parcial, $t)) unset($t[$result_parcial]);
+                if(strpos($consulta, $result_parcial) === false){
+                    //remove a coluna geometrica
+                    foreach($result['res'] as &$t){
+                        if(array_key_exists($result_parcial, $t)) unset($t[$result_parcial]);
+                    }
                 }
 
             }else{

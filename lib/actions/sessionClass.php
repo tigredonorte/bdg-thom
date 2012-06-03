@@ -70,11 +70,11 @@ class sessionClass{
         return $var;
     }
     
-    public function getResultMap(){
+    public function getResultMap($x_translate = "0", $y_translate = "0", $scale = "1"){
         $var = $this->mcons->getFirstMap();
         if(is_array($var)){
             if(!empty ($var)){
-                $var = $this->svg->draw($var, 300, 100, 4);
+                $var = $this->svg->draw($var, $x_translate, $y_translate, $scale);
             }else $var = "";
         }
         return $var;

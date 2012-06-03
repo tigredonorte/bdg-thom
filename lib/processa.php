@@ -11,7 +11,7 @@ if(method_exists($sobj, $action)){
 
 $result = $sobj->getResultConsulta();
 $layers = $sobj->getSqlConsulta();
-$map    = $sobj->getResultMap();
+$map    = $sobj->getResultMap(300, 100, 2);
 $first  = end($layers);
 $layers = array_reverse($layers);
 ?>

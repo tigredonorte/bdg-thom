@@ -21,7 +21,7 @@ class sessionClass{
         foreach($consult as $cons)
             $map[] = $this->mcons->loadMap($cons);
         
-        $var = $this->svg->drawMultiple($map);
+        $var = $this->svg->drawMultiple($map, 300, 100, 2);
         die($var);
     }
     

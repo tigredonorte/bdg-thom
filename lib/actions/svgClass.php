@@ -46,7 +46,7 @@ class svgClass{
     //tando para gerar um grafico quanto um merge de varios graficos, bastando que para isso passemos o grupo de cada grafico. 
     public function configureSVG($group_array, $width = "100%", $height='100%'){
             $result = "<svg xmlns='http://www.w3.org/2000/svg' version='1.1'
-                style='heigth: $height; width: $width;' preserveAspectRatio='xMaxYMax meet' >  ";
+                style='height: $height; width: $width;' preserveAspectRatio='xMaxYMax meet' >  ";
             if(is_array($group_array)){
                 foreach($group_array as $group){
                         $append .= $group;

@@ -15,8 +15,6 @@ require_once 'init.php';
         <script type="text/javascript">
             $(document).ready(function() {
                 $( "#tabs" ).tabs({collapsible: true, event: "mouseover"}).find( ".ui-tabs-nav" ).sortable({ axis: "x" });
-                
-                     $( "path" ).resizable();
                 var availableTags = [<?php echo $tags; ?>];
                 $( "#tcons" ).autocomplete({
                     minLength: 0,
@@ -40,8 +38,8 @@ require_once 'init.php';
         </script>
         <script type="text/javascript" src="js/tags.js"></script>
         <?php if(geografico){ ?>
-        <script type="text/javascript" src="js/raphael.js"></script>
-        <script type="text/javascript" src="js/raphael_example.js"></script>
+        <!--<script type="text/javascript" src="js/raphael.js"></script>
+        <script type="text/javascript" src="js/raphael_example.js"></script>-->
         <?php } ?>
     </head>
     <body>

@@ -14,9 +14,35 @@ require_once 'init.php';
         <script type="text/javascript" src="js/submit.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                $("#tabs").tabs();
+                $( "#tabs" ).tabs({collapsible: true, event: "mouseover"}).find( ".ui-tabs-nav" ).sortable({ axis: "x" });
+                
+                     $( "path" ).resizable();
+                var availableTags = [<?php echo $tags; ?>];
+                $( "#tcons" ).autocomplete({
+                    minLength: 0,
+                    source: function( request, response ) {
+                            response( $.ui.autocomplete.filter(
+                                    availableTags, extractLast( request.term ) ) );
+                    },
+                    select: function( event, ui ) {
+                            var terms = split( this.value );
+                            // remove the current input
+                            terms.pop();
+                            // add the selected item
+                            terms.push( ui.item.value );
+                            // add placeholder to get the comma-and-space at the end
+                            terms.push( "" );
+                            this.value = terms.join( " " );
+                            return false;
+                    }
+                });
             });
         </script>
+        <script type="text/javascript" src="js/tags.js"></script>
+        <?php if(geografico){ ?>
+        <script type="text/javascript" src="js/raphael.js"></script>
+        <script type="text/javascript" src="js/raphael_example.js"></script>
+        <?php } ?>
     </head>
     <body>
         <div id="tudo">

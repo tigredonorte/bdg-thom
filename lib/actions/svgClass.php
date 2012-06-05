@@ -27,7 +27,8 @@ class svgClass{
     public function configurePath($path, $stroke = "black", $stroke_width = "0.005cm", $stroke_opacity="1.0", $fill="none", $fill_opacity="0.0"){
             static $id = 0;
             $id += 1;
-            return "<path id=\"$id\" stroke=\"$stroke\" stroke-width=\"$stroke_width\" stroke-opacity=\"$stroke_opacity\" fill=\"$fill\" fill-opacity=\"$fill_opacity\" d=\"$path\" />";
+            return "<path id=\"$id\" class='path' stroke=\"$stroke\" stroke-width=\"$stroke_width\" 
+                          stroke-opacity=\"$stroke_opacity\" fill=\"$fill\" fill-opacity=\"$fill_opacity\" d=\"$path\" />";
     }
 
     //(VI) Esta funcao sera chamada apos todas as linhas retornadas no passo V terem sido colocadas no array $path_array
@@ -44,7 +45,8 @@ class svgClass{
     //(VII) Esta funcao sera chamada para juntar em um SVG apenas um ou mais grupos gerados através do passo (VI). Esta funcao serve
     //tando para gerar um grafico quanto um merge de varios graficos, bastando que para isso passemos o grupo de cada grafico. 
     public function configureSVG($group_array, $width = "100%", $height='100%'){
-            $result = "<svg width='$width' height='$height' xmlns='http://www.w3.org/2000/svg' version='1.1'>  ";
+            $result = "<svg xmlns='http://www.w3.org/2000/svg' version='1.1'
+                style='heigth: $height; width: $width;' preserveAspectRatio='xMaxYMax meet' >  ";
             if(is_array($group_array)){
                 foreach($group_array as $group){
                         $append .= $group;

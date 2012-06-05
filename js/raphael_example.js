@@ -7,9 +7,10 @@ window.onload = function () {
         "stroke-linejoin": "round"
     };
     var aus = {};
-    $('path').each(function(){
-        aus[$(this).attr('id')] = R.path($(this).attr('path'));
+    $('.path').each(function(){
+        //aus[$(this).attr('id')] = R.path($(this).attr('d'));
     });
+    
     var current = null;
     for (var state in aus) {
         aus[state].color = Raphael.getColor();
@@ -17,7 +18,6 @@ window.onload = function () {
             if(this.est == undefined){this.est = 0;}
             st[0].style.cursor = "pointer";
             st[0].onmouseover = function () {
-                if(this.est == 1) alert('é um');
                 if (this.est == 0){
                     current && aus[current].animate({fill: "#333", stroke: "#666"}, 500) && (document.getElementById(current).style.display = "");
                     st.animate({fill: st.color, stroke: "#ccc"}, 500);

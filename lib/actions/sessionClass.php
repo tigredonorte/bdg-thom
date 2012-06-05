@@ -82,6 +82,10 @@ class sessionClass{
         return $var;
     }
     
+    public function getTags(){
+        return $_SESSION['tags'];
+    }
+    
     public function getResultMap($x_translate = "0", $y_translate = "0", $scale = "1"){
         $var = $this->mcons->getFirstMap();
         if(is_array($var)){
@@ -127,17 +131,23 @@ class sessionClass{
         $html   = "";
         if(is_array($schema)){
             foreach($schema as $tablename => $sc){
+                $tags[] = "'$tablename'";
                 $html .= "$tablename(";
                 $v = "";
                     foreach($sc as $col => $key){
                         $col   = ($key == "PRI")?"<u>$col</u>":$col;
                         $html .= "$v$col";
                         $v = ", ";
+                        $tags[] = "'$col'";
                     }
                 $html .= ")<br/><br/>";
             }
         }else{ $html = $this->sql->getErro(); }
         $_SESSION['schema'] = $html;
+        $tags[] = "'SELECT'"; $tags[] = "'FROM'"; $tags[] = "'WHERE'";
+        $tags[] = "'LIMIT'"; $tags[] = "'OFSET'"; $tags[] = "'ORDER BY'";
+        $tags[] = "'count(*)'"; $tags[] = "'SUM()'"; 
+        $_SESSION['tags'] = implode(', ', $tags);
         return $_SESSION['schema'];
     }
     

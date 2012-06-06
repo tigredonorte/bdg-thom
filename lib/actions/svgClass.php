@@ -3,24 +3,33 @@
 class svgClass{
     
     public function draw($array, $x_translate = "0", $y_translate = "0", $scale = "1"){
-        $var = "";
-        foreach($array as $arr){
-            $var .= $this->configureGroup($arr, $x_translate, $y_translate, $scale);
-        }
+        $var = $this->configureGroup($array, $x_translate, $y_translate, $scale);
         $var = $this->configureSVG($var);
         return $var;
     }
     
     public function drawMultiple($array, $x_translate = "0", $y_translate = "0", $scale = "1"){
         $var = "";
-        foreach($array as $arrs){
-            foreach($arrs as $arr)
+        foreach($array as $arr){
+            //foreach($arrs as $arr)
                 $var .= $this->configureGroup($arr, $x_translate, $y_translate, $scale);
         }
         $var = $this->configureSVG($var);
         return $var;
     }
 
+    //(VI) Esta funcao sera chamada apos todas as linhas retornadas no passo V terem sido colocadas no array $path_array
+    public function configureGroup($path_array, $x_translate = "0", $y_translate = "0", $scale = "1"){
+            $result = "<g transform=\"translate($x_translate,$y_translate) scale($scale)\"> ";
+            foreach($path_array as $path){
+                //$result .= $path;
+                if(count($path) > 1) echo "oh?";
+                $path    = array_shift($path);
+                $result .= $this->configurePath($path);
+            }
+            $result .= "</g>";
+            return $result;
+    }
 
     //(V) Esta funcao sera chamada para cada linha da coluna retornada no passo III, colocando os resultados em um array
     public function configurePath($path, $stroke = "black", $stroke_width = "0.005cm", $stroke_opacity="1.0", $fill="none", $fill_opacity="0.0"){
@@ -30,16 +39,7 @@ class svgClass{
                           stroke-opacity=\"$stroke_opacity\" fill=\"$fill\" fill-opacity=\"$fill_opacity\" d=\"$path\" />";
     }
 
-    //(VI) Esta funcao sera chamada apos todas as linhas retornadas no passo V terem sido colocadas no array $path_array
-    public function configureGroup($path_array, $x_translate = "0", $y_translate = "0", $scale = "1"){
-            $result = "<g transform=\"translate($x_translate,$y_translate) scale($scale)\"> ";
-            foreach($path_array as $path){
-                //$result .= $path;
-                $result .= $this->configurePath($path);
-            }
-            $result .= "</g>";
-            return $result;
-    }
+    
 
     //(VII) Esta funcao sera chamada para juntar em um SVG apenas um ou mais grupos gerados através do passo (VI). Esta funcao serve
     //tando para gerar um grafico quanto um merge de varios graficos, bastando que para isso passemos o grupo de cada grafico. 

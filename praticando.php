@@ -15,7 +15,7 @@ require_once 'init.php';
         <script type="text/javascript" src="js/submit.js"></script>
         <script type="text/javascript">
             $(document).ready(function() {
-                $( "#tabs" ).tabs({collapsible: true, event: "mouseover"}).find( ".ui-tabs-nav" ).sortable({ axis: "x" });
+                $( "#tabs" ).tabs({event: "mouseover"}).find( ".ui-tabs-nav" ).sortable({ axis: "x" });
                 var availableTags = [<?php echo $tags; ?>];
                 $( "#tcons" ).autocomplete({
                     minLength: 0,

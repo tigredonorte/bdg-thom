@@ -11,7 +11,7 @@ if(method_exists($sobj, $action)){
 
 $result = $sobj->getResultConsulta();
 $layers = $sobj->getSqlConsulta();
-$map    = $sobj->getResultMap(600, 100, 5);
+if(geografico)$map = $sobj->getResultMap(600, 100, 5);
 $tags   = $sobj->getTags();
 $first  = end($layers);
 $layers = array_reverse($layers);

@@ -111,7 +111,7 @@ require_once 'init.php';
                         <div id="schema" class="mainlayer border bg"><?php if(isset($schema)) echo $schema; ?></div>
                     </div>
                     <div id="tabs-4">
-                        <div id="tutorial" class="mainlayer border bg"><?php if(isset($tutorial)) echo $tutorial; ?></div>
+                        <div id="tutorial" class="mainlayer border bg"><?php require_once 'lib/tutorial.php'; ?></div>
                     </div>
                     
                     <div id="formulario" class="border bg">

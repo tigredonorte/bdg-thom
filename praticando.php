@@ -1,4 +1,5 @@
-<?php 
+<?php
+define('showall', true);
 require_once 'init.php';
 ?>
 <html>
@@ -45,6 +46,7 @@ require_once 'init.php';
         <link rel="stylesheet" media="screen" type="text/css" href="plugins/jpicker/css/jPicker-1.1.6.min.css" />
         <link rel="stylesheet" media="screen" type="text/css" href="css/colorselector.css" />
         <?php } ?>
+        <script type="text/javascript" src="plugins/svgpan/SVGPan.js"></script>
     </head>
     <body>
         <div id="tudo">
@@ -95,16 +97,20 @@ require_once 'init.php';
                 <div id="tabs">
                     <ul>
                         <li><a class='tablink' href="#tabs-1">Resultado</a></li>
-                        <?php if(geografico){?><li><a class='tablink' href="#tabs-2">Mapa</a></li><?php }?>
+                        <?php if(geografico || showall){?><li><a class='tablink' href="#tabs-2">Mapa</a></li><?php }?>
                         <li><a class='tablink' href="#tabs-3">Schema</a></li>
                         <li><a class='tablink' href="#tabs-4">Tutorial</a></li>
                     </ul>
                     <div id="tabs-1">
                         <div id="mainlayer" class="mainlayer border bg"><table></table><?php if(isset($result)) echo $result; ?></div>
                     </div>
-                    <?php if(geografico){ ?>
+                    <?php if(geografico && showall){ ?>
                     <div id="tabs-2">
                         <div id="maps" class="mainlayer border bg"><?php if(isset($map)) echo $map; ?></div>
+                    </div>
+                    <?php }elseif(showall){ ?>
+                    <div id="tabs-2">
+                        <div id="maps" class="mainlayer border bg"><?php echo file_get_contents('plugins/svgpan/tiger.svg'); ?></div>
                     </div>
                     <?php }?>
                     <div id="tabs-3">

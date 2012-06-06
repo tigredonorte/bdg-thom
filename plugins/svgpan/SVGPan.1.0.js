@@ -1,6 +1,5 @@
 /**
- *  SVGPan library 1.2
- * ====================
+ * SVGPan library 1.0, (C) 2009 Andrea Leofreddi
  *
  * Given an unique existing element with id "viewport", including the
  * the library into any SVG adds the following capabilities:
@@ -11,33 +10,20 @@
  *
  * Known issues:
  *
- *  - Zooming (while panning) on Safari has still some issues
+ *  - The wheel zoom does not work on Safari
  *
- * Releases:
- *
- * 1.2, Sat Mar 20 08:42:50 GMT 2010, Zeng Xiaohui
- *	Fixed a bug with browser mouse handler interaction
- *
- * 1.1, Wed Feb  3 17:39:33 GMT 2010, Zeng Xiaohui
- *	Updated the zoom code to support the mouse wheel on Safari/Chrome
- *
- * 1.0, Andrea Leofreddi
- *	First release
- *
- * This code is licensed under the following BSD license:
- *
- * Copyright 2009-2010 Andrea Leofreddi <a.leofreddi@itcharm.com>. All rights reserved.
- *
+ * Copyright 2009 Andrea Leofreddi <a.leofreddi@itcharm.com>. All rights reserved.
+ * 
  * Redistribution and use in source and binary forms, with or without modification, are
  * permitted provided that the following conditions are met:
- *
+ * 
  *    1. Redistributions of source code must retain the above copyright notice, this list of
  *       conditions and the following disclaimer.
- *
+ * 
  *    2. Redistributions in binary form must reproduce the above copyright notice, this list
  *       of conditions and the following disclaimer in the documentation and/or other materials
  *       provided with the distribution.
- *
+ * 
  * THIS SOFTWARE IS PROVIDED BY Andrea Leofreddi ``AS IS'' AND ANY EXPRESS OR IMPLIED
  * WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
  * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL Andrea Leofreddi OR
@@ -47,7 +33,7 @@
  * ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
  * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
  * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- *
+ * 
  * The views and conclusions contained in the software and documentation are those of the
  * authors and should not be interpreted as representing official policies, either expressed
  * or implied, of Andrea Leofreddi.
@@ -68,13 +54,11 @@ function setupHandlers(root){
 		"onmousedown" : "handleMouseDown(evt)",
 		"onmousemove" : "handleMouseMove(evt)",
 		"onmouseup" : "handleMouseUp(evt)",
-		//"onmouseout" : "handleMouseUp(evt)", // Decomment this to stop the pan functionality when dragging out of the SVG element
+		//"onmouseover" : "hilight(evt)",
+		//"onmouseout" : "hilight(evt)"
 	});
 
-	if(navigator.userAgent.toLowerCase().indexOf('webkit') >= 0)
-		window.addEventListener('mousewheel', handleMouseWheel, false); // Chrome/Safari
-	else
-		window.addEventListener('DOMMouseScroll', handleMouseWheel, false); // Others
+	window.addEventListener('DOMMouseScroll', handleMouseWheel, false);
 }
 
 /**
@@ -119,24 +103,12 @@ function setAttributes(element, attributes){
  * Handle mouse move event.
  */
 function handleMouseWheel(evt) {
-	if(evt.preventDefault)
-		evt.preventDefault();
-
-	evt.returnValue = false;
-
 	var svgDoc = evt.target.ownerDocument;
 
-	var delta;
-
-	if(evt.wheelDelta)
-		delta = evt.wheelDelta / 3600; // Chrome/Safari
-	else
-		delta = evt.detail / -90; // Mozilla
-
-	var z = 1 + delta; // Zoom factor: 0.9/1.1
+	var z = 1.0 + evt.detail / 90; // Zoom factor: 0.9/1.1
 
 	var g = svgDoc.getElementById("viewport");
-
+	
 	var p = getEventPoint(evt);
 
 	p = p.matrixTransform(g.getCTM().inverse());
@@ -153,11 +125,6 @@ function handleMouseWheel(evt) {
  * Handle mouse move event.
  */
 function handleMouseMove(evt) {
-	if(evt.preventDefault)
-		evt.preventDefault();
-
-	evt.returnValue = false;
-
 	var svgDoc = evt.target.ownerDocument;
 
 	var g = svgDoc.getElementById("viewport");
@@ -181,14 +148,10 @@ function handleMouseMove(evt) {
  * Handle click event.
  */
 function handleMouseDown(evt) {
-	if(evt.preventDefault)
-		evt.preventDefault();
-
-	evt.returnValue = false;
-
 	var svgDoc = evt.target.ownerDocument;
 
 	var g = svgDoc.getElementById("viewport");
+
 
 	if(evt.target.tagName == "svg") {
 		// Pan mode
@@ -213,11 +176,6 @@ function handleMouseDown(evt) {
  * Handle mouse button release event.
  */
 function handleMouseUp(evt) {
-	if(evt.preventDefault)
-		evt.preventDefault();
-
-	evt.returnValue = false;
-
 	var svgDoc = evt.target.ownerDocument;
 
 	if(state == 'pan' || state == 'move') {
@@ -225,3 +183,4 @@ function handleMouseUp(evt) {
 		state = '';
 	}
 }
+

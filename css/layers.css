@@ -35,6 +35,7 @@
                             height: 20px;
                         }
                                 .acoes a{
+                                    float: left;
                                     color: #262626;
                                 }
 .consultaativa{

@@ -1,4 +1,4 @@
-<?php define('showall', true);?>
+<?php define('showall', false);?>
 <h2>Como utilizar o site</h2>
 <p>
     O site está dividido em três regiões de interesse:

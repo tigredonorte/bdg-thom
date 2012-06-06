@@ -87,11 +87,9 @@ class svgClass{
                 $result['mapa'] = $sql->consultar("SELECT ST_ASSVG($result_parcial, 1) as svg FROM $tabela_temporaria;");
                 $sql->consultar("DROP TABLE IF EXISTS $tabela_temporaria;");
                 
-                if(strpos($consulta, $result_parcial) === false){
-                    //remove a coluna geometrica
-                    foreach($result['res'] as &$t){
-                        if(array_key_exists($result_parcial, $t)) unset($t[$result_parcial]);
-                    }
+                //remove a coluna geometrica
+                foreach($result['res'] as &$t){
+                    if(array_key_exists($result_parcial, $t)) unset($t[$result_parcial]);
                 }
 
             }else{

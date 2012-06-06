@@ -40,6 +40,10 @@ require_once 'init.php';
         <?php if(geografico){ ?>
         <!--<script type="text/javascript" src="js/raphael.js"></script>
         <script type="text/javascript" src="js/raphael_example.js"></script>-->
+        <script type="text/javascript" src="plugins/jpicker/jpicker-1.1.6.min.js"></script>
+        <script type="text/javascript" src="js/jPickerAction.js"></script>
+        <link rel="stylesheet" media="screen" type="text/css" href="plugins/jpicker/css/jPicker-1.1.6.min.css" />
+        <link rel="stylesheet" media="screen" type="text/css" href="css/colorselector.css" />
         <?php } ?>
     </head>
     <body>
@@ -51,8 +55,10 @@ require_once 'init.php';
                             <div id="opcoes">
                                 
                                 <a href="?action=getlink" id="getlink"><img src='img/link.png' alt="link"/></a>
-                                <?php if(geografico){ ?><a href="merge.php?action=merge" target="__blank" id="merge">
-                                    <img src='img/merge.png'/></a>
+                                <?php if(geografico){ ?>
+                                <a href="merge.php?action=merge" target="__blank" id="merge">
+                                    <img src='img/merge.png'/>
+                                </a>
                                 <?php }?>
                             </div>
                         </div>
@@ -61,15 +67,19 @@ require_once 'init.php';
                                 foreach($layers as $layer){
                                     $key     = base64_encode($layer);
                                     $link    = "?consulta=$key";
-                                    $ver     = "<a href='$link&action=recuperaconsulta' class='action'><img src='img/btn_editar.png'/></a>";
-                                    $apagar  = "<a href='$link&action=apagaconsulta' class='action'><img src='img/btn_excluir.png'/></a>";
-                                    $acoes   = "$ver $apagar";
+                                    $acoes   = "<a href='$link&action=recuperaconsulta' class='action'><img src='img/btn_editar.png'/></a>";
+                                    if(geografico){
+                                        $acoes .= "<a class='action colorSelector bgcolor' id='#bg_$key'></a>";
+                                        $acoes .= "<a class='action colorSelector licolor' id='#li_$key'></a>";
+                                    }
+                                    $acoes  .= "<a href='$link&action=apagaconsulta' class='action'><img src='img/btn_excluir.png'/></a>";
+                                    
                                     echo "<li class='layer border'>
                                             <a href='$key' class='selecionar'>
                                                 <div class='item bg bg-hover'>".  nl2br($layer)."</div>
                                             </a>
-                                            <div class='acoes'>$acoes</div>
-                                         </li>";
+                                            <div class='acoes'>$acoes</div>";
+                                     echo "</li>";
                                 }
                             ?>
                         </ul>
@@ -87,6 +97,7 @@ require_once 'init.php';
                         <li><a class='tablink' href="#tabs-1">Resultado</a></li>
                         <?php if(geografico){?><li><a class='tablink' href="#tabs-2">Mapa</a></li><?php }?>
                         <li><a class='tablink' href="#tabs-3">Schema</a></li>
+                        <li><a class='tablink' href="#tabs-4">Tutorial</a></li>
                     </ul>
                     <div id="tabs-1">
                         <div id="mainlayer" class="mainlayer border bg"><table></table><?php if(isset($result)) echo $result; ?></div>
@@ -98,6 +109,9 @@ require_once 'init.php';
                     <?php }?>
                     <div id="tabs-3">
                         <div id="schema" class="mainlayer border bg"><?php if(isset($schema)) echo $schema; ?></div>
+                    </div>
+                    <div id="tabs-4">
+                        <div id="tutorial" class="mainlayer border bg"><?php if(isset($tutorial)) echo $tutorial; ?></div>
                     </div>
                     
                     <div id="formulario" class="border bg">

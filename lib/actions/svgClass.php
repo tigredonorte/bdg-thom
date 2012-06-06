@@ -2,7 +2,6 @@
 
 class svgClass{
     
-
     public function draw($array, $x_translate = "0", $y_translate = "0", $scale = "1"){
         $var = "";
         foreach($array as $arr){

@@ -1,5 +1,5 @@
 /**
- *  SVGPan library 1.2
+ *  SVGPan library 1.1
  * ====================
  *
  * Given an unique existing element with id "viewport", including the
@@ -14,9 +14,6 @@
  *  - Zooming (while panning) on Safari has still some issues
  *
  * Releases:
- *
- * 1.2, Sat Mar 20 08:42:50 GMT 2010, Zeng Xiaohui
- *	Fixed a bug with browser mouse handler interaction
  *
  * 1.1, Wed Feb  3 17:39:33 GMT 2010, Zeng Xiaohui
  *	Updated the zoom code to support the mouse wheel on Safari/Chrome
@@ -68,7 +65,6 @@ function setupHandlers(root){
 		"onmousedown" : "handleMouseDown(evt)",
 		"onmousemove" : "handleMouseMove(evt)",
 		"onmouseup" : "handleMouseUp(evt)",
-		//"onmouseout" : "handleMouseUp(evt)", // Decomment this to stop the pan functionality when dragging out of the SVG element
 	});
 
 	if(navigator.userAgent.toLowerCase().indexOf('webkit') >= 0)
@@ -119,11 +115,6 @@ function setAttributes(element, attributes){
  * Handle mouse move event.
  */
 function handleMouseWheel(evt) {
-	if(evt.preventDefault)
-		evt.preventDefault();
-
-	evt.returnValue = false;
-
 	var svgDoc = evt.target.ownerDocument;
 
 	var delta;
@@ -153,11 +144,6 @@ function handleMouseWheel(evt) {
  * Handle mouse move event.
  */
 function handleMouseMove(evt) {
-	if(evt.preventDefault)
-		evt.preventDefault();
-
-	evt.returnValue = false;
-
 	var svgDoc = evt.target.ownerDocument;
 
 	var g = svgDoc.getElementById("viewport");
@@ -181,14 +167,10 @@ function handleMouseMove(evt) {
  * Handle click event.
  */
 function handleMouseDown(evt) {
-	if(evt.preventDefault)
-		evt.preventDefault();
-
-	evt.returnValue = false;
-
 	var svgDoc = evt.target.ownerDocument;
 
 	var g = svgDoc.getElementById("viewport");
+
 
 	if(evt.target.tagName == "svg") {
 		// Pan mode
@@ -213,11 +195,6 @@ function handleMouseDown(evt) {
  * Handle mouse button release event.
  */
 function handleMouseUp(evt) {
-	if(evt.preventDefault)
-		evt.preventDefault();
-
-	evt.returnValue = false;
-
 	var svgDoc = evt.target.ownerDocument;
 
 	if(state == 'pan' || state == 'move') {

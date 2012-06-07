@@ -21,7 +21,7 @@ class sessionClass{
         foreach($consult as $cons)
             $map[] = $this->mcons->loadMap($cons);
         
-        $var = $this->svg->drawMultiple($map, 300, 100, 2);
+        $var = $this->svg->drawMultiple($map, 700, 100, 9);
         die($var);
     }
     
@@ -90,7 +90,7 @@ class sessionClass{
         $var = $this->mcons->getFirstMap();
         if(is_array($var)){
             if(!empty ($var)){
-                $var = $this->svg->draw($var, $x_translate, $y_translate, $scale);
+                $var = $this->svg->draw($var, 950, 70, 9);
             }else $var = "";
         }
         return $var;

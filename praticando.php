@@ -61,27 +61,7 @@
                                 <?php }?>
                             </div>
                         </div>
-                        <ul id="sortable">
-                            <?php 
-                                foreach($layers as $layer){
-                                    $key     = base64_encode($layer);
-                                    $link    = "?consulta=$key";
-                                    $acoes   = "<a href='$link&action=recuperaconsulta' class='action'><img src='img/btn_editar.png'/></a>";
-                                    if(geografico){
-                                        $acoes .= "<a class='action colorSelector bgcolor' id='#bg_$key'></a>";
-                                        $acoes .= "<a class='action colorSelector licolor' id='#li_$key'></a>";
-                                    }
-                                    $acoes  .= "<a href='$link&action=apagaconsulta' class='action'><img src='img/btn_excluir.png'/></a>";
-                                    
-                                    echo "<li class='layer border'>
-                                            <a href='$key' class='selecionar'>
-                                                <div class='item bg bg-hover'>".  nl2br($layer)."</div>
-                                            </a>
-                                            <div class='acoes'>$acoes</div>";
-                                     echo "</li>";
-                                }
-                            ?>
-                        </ul>
+                        <ul id="sortable"> <?php if(isset($layers)) echo $layers; ?> </ul>
                     </div>
             </div>
             <div id="consulta">
@@ -115,7 +95,7 @@
                     
                     <div id="formulario" class="border bg">
                         <form action="lib/ajax/consulta.php" method="post" id="form">
-                            <textarea name="consulta" id="tcons" class="border"><?php echo $first; ?></textarea>
+                            <textarea name="consulta" id="tcons" class="border"><?php if(isset($first)) echo $first; ?></textarea>
                             <br/>
                             <input type="submit" value="consultar" id="button"/>
                         </form>

@@ -12,29 +12,9 @@ if(method_exists($sobj, $action)){
     $sobj->$action();
 }
 
-$result = $first = $map = "";
-$layers = array();
-
-$result = $sobj->getResult('');
-$result = $vobj->prepare($result);
-//print_r($result);
-extract($result);
-/*
-if(!empty ($temp)){
-    $table = new tableClass();
-    $svg   = new svgClass();
-    
-    foreach($temp as $id => $array){
-        $result .= "Consulta realizada em: ".$array['time'] . "<hr/>";
-        $result .= $table->draw($array['res'], $id);
-        $layers[] = base64_decode($id);
-
-        if(geografico)
-            $map .= $svg->draw($id, $array['mapa'], 600, 100, 5);
-    }
-    $first  = end($layers);
-}
-*/
-$tags = $sobj->getTags();
+$resultado = $sobj->getResult('');
+$tags      = $sobj->getTags();
+$resultado = $vobj->prepare($resultado);
+extract($resultado);
 
 ?>

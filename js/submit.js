@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    
     $('#form').submit(function() {
           var id = window.btoa($('#tcons').val());
           var contains = 0;
@@ -10,9 +11,9 @@ $(document).ready(function(){
           });
           
           $('.tablesorter').fadeOut('slow');
-          $('g').fadeOut('slow');
           $('g').each(function(){
-              $(this).fadeIn('slow');
+              alert($(this).attr('id'));
+              $(this).fadeOut('slow');
           });
           
           if(contains == 0){
@@ -41,6 +42,16 @@ $(document).ready(function(){
           return false;
           
     });
+    
+    var primeiro_layer = 0;
+    $('.layer').each(function(){
+        var id = $(this).children('a').attr('href');
+        if(primeiro_layer == 0)
+            primeiro_layer = 1;
+        else
+            $('#' + id).fadeOut();
+    });
+    
 });
 
 $('.selecionar').live('click', function(){

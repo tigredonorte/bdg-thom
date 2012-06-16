@@ -1,6 +1,15 @@
 $(document).ready(function() {
+    
+    $('.colorSelector').each(function(){
+        var id = $(this).attr('id');
+        color_picker_show(id)
+    });
+    
+});
+
+function color_picker_show(id){
     var color_picker_id_selected = '';
-    $('.colorSelector').ColorPicker({
+    $('#'+id).ColorPicker({
         color: '#0000ff',
         onShow: function (colpkr) {
                 color_picker_id_selected = $(this).attr('id');
@@ -17,5 +26,4 @@ $(document).ready(function() {
                 $(temp).css('backgroundColor', '#' + hex);
         }
     });
-    
-});
+}

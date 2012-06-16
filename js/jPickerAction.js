@@ -1,5 +1,16 @@
-function jpickeraction(){
-    $('.colorSelector').jPicker({
+$(document).ready(function() {
+    
+    jpickeraction("colorSelector", '.');
+    /*$('.colorSelector').each(function(){
+        var id = $(this).attr('id');
+        jpickeraction(id, '#');
+    });*/
+    
+});
+
+function jpickeraction(id, carc){
+    var cid = carc+id;
+    $(cid).jPicker({
         window:{
             alphaSupport: true,
             active: new $.jPicker.Color({ ahex: '993300FF' }),
@@ -9,7 +20,3 @@ function jpickeraction(){
         images: {clientPath: 'plugins/jpicker/images/'}
     });
 }
-
-$(document).ready(function(){
-    jpickeraction();
-});

@@ -6,28 +6,29 @@ class view{
         
         $resultado = $map = $layer = $tmp_res = "";
         $out = array();
+        $svg = new svgClass();
         if(!empty ($result)){
+            
             $table = new tableClass();
-            $svg   = new svgClass();
-
             foreach($result as $id => $array){
                 $tmp         = "Consulta realizada em: ".$array['time'] . "<hr/>";
                 $resultado[] = $tmp . $table->draw($array['res'], $id);
                 $layer     = base64_decode($id);
                 $layers[]  = $layer;
 
-                if(geografico){
+                if(geografico)
                     $map .= $svg->draw($id, $array['mapa'], 600, 100, 5);
-                }
-
             }
             //$resultado = array_reverse($resultado);
-            if(geografico)
-            $out['map']    = $map;
+            
             $out['result'] = implode(" ",$resultado);
             $out['first']  = $layer;
-            $out['layers'] = $layers;
+            $out['layers'] = $this->drawLayers($layers);
         }
+        
+        if(geografico)
+            $out['map'] = $svg->configureSVG($map);
+        
         return $out;
     }
     
@@ -37,7 +38,7 @@ class view{
         $var = "";
         foreach($layers as $layer){
              $key  = base64_encode($layer);
-             $var .= $this->sortable($key, $consulta);
+             $var .= $this->sortable($key, $layer);
         }
         return $var;
     }
@@ -49,11 +50,11 @@ class view{
             <a href='$key' class='selecionar'>
                 <div class='item bg bg-hover'>". nl2br($consulta)."</div>
             </a>
-            <div class='acoes'>$acoes
+            <div class='acoes'>
                 <a href='$link&action=recuperaconsulta' class='action'><img src='img/btn_editar.png'/></a>";
             if(geografico){
-                $var .= "<a class='action colorSelector bgcolor' id='#bg_$key'></a>";
-                $var .= "<a class='action colorSelector licolor' id='#li_$key'></a>";
+                $var .= "<a class='action colorSelector bgcolor' id='bg_$key'></a>";
+                $var .= "<a class='action colorSelector licolor' id='li_$key'></a>";
             }    
             $var .= "<a href='$link&action=apagaconsulta' class='action'><img src='img/btn_excluir.png'/></a>
             </div>

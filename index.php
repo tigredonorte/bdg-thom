@@ -1,4 +1,5 @@
 <?php
+
 function findFiles($diretorio){
 
     //apaga os arquivos e pastas, se ja foram setados
@@ -36,6 +37,8 @@ if(isset($_POST['sgbd'])){
     
     $filename = "$diretorio/$sgbd/connection.php";
     if(file_exists($filename)){
+        require_once $filename;
+        if(function_exists("installView")) installView();
         echo "<meta http-equiv='refresh' content='0;URL=praticando.php?sgbd=$sgbd' />";
     }
     require_once 'praticando.php';

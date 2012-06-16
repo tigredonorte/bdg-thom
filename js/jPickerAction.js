@@ -1,4 +1,4 @@
-$(document).ready(function(){
+function jpickeraction(){
     $('.colorSelector').jPicker({
         window:{
             alphaSupport: true,
@@ -8,6 +8,8 @@ $(document).ready(function(){
         },
         images: {clientPath: 'plugins/jpicker/images/'}
     });
+}
+
+$(document).ready(function(){
+    jpickeraction();
 });
-
-

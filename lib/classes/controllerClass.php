@@ -1,16 +1,24 @@
 <?php
 require_once 'sqlClass.php';
 require_once 'svgClass.php';
-require_once 'consultClass.php';
+require_once 'consultaClass.php';
+require_once 'sessionClass.php';
 
-class sessionClass{
+class controllerClass{
     
     public function __construct() {
         //cria a variavel de sessao (responsável por guardar as consultas
-        $this->mcons = new Consult();
-        $this->sql   = new sqlClass();
-        $this->svg   = new svgClass();
+        $this->con = new consultaClass();
+        $this->sql = new sqlClass();
+        $this->svg = new svgClass();
  
+    }
+    
+    //faz uma nova consulta
+    public function consultar(){
+        $consulta = isset($_POST['consulta'])?$_POST['consulta']:"";
+        if($consulta == "") return;
+        return $this->con->consultar($consulta);
     }
     
     public function merge(){
@@ -18,91 +26,34 @@ class sessionClass{
         array_pop($consult);
         
         $map = array();
-        foreach($consult as $cons)
-            $map[] = $this->mcons->loadMap($cons);
+        foreach($consult as $cons){
+            $temp       = $this->con->recuperar($cons);
+            $map[$cons] = $temp['mapa'];
+        }
         
         $var = $this->svg->drawMultiple($map, 300, 100, 2);
         die($var);
     }
     
-    //se uma consulta foi enviada e ainda não foi feita salva a consulta
-    public function consultar(){
-
-        //verifica se a consulta não foi feita e salva
-        $consulta = isset($_POST['consulta'])?$_POST['consulta']:"";
-        if($consulta == "") return;
-
-        //faz a nova consulta
-        if(geografico){
-            $result = $this->svg->consultar($consulta, $this->sql);
-            $mapa = $result['mapa'];
-            $res  = $result['res'];
-        }
-        else $res = $this->sql->consultar($consulta);
-        if($res === false) $res = $this->sql->getErro();
-        $time = $this->sql->getCTime();
-        $this->mcons->saveConsult($consulta, $res, $mapa, $time);
-    }
-    
     //apaga uma consulta caso ela exista
     public function apagaconsulta(){
-        $this->mcons->deleteConsult($_GET['consulta']);
-    }
-    
-    //se foi feita uma consulta que estava na lista, coloca esta na primeira posicao
-    public function recuperaconsulta(){
         if(isset($_GET['consulta'])){
-            $this->mcons->toFirst($_GET['consulta']);
+            $this->con->apagar($_GET['consulta']);
         }
     }
-    
-    public function getResultadoPorConsulta($consulta){
-        $var = $this->mcons->loadConsult($consulta);
-        print_r($var);
-        if($var == "") return "Nenhum resultado encontrado";
-        if(is_array($var)){
-            if(!empty ($var)){
-                require_once 'tableClass.php';
-                $table = new tableClass();
-                $var   = $table->draw($var);
-            }else $var = "Nenhum resultado encontrado";
-        }
-        return $var;
-    }
-    
-    public function getResultConsulta(){
-        $var = $this->mcons->getFirstResult();
-        if(is_array($var)){
-            if(!empty ($var)){
-                require_once 'tableClass.php';
-                $table = new tableClass();
-                $var = $table->draw($var);
-            }else $var = "Nenhum resultado encontrado";
-        }
-        return $var;
-    }
-    
+       
     public function getTags(){
         return $_SESSION['tags'];
     }
     
-    public function getResultMap($x_translate = "0", $y_translate = "0", $scale = "1"){
-        $var = $this->mcons->getFirstMap();
-        if(is_array($var)){
-            if(!empty ($var)){
-                $var = $this->svg->draw($var, $x_translate, $y_translate, $scale);
-            }else $var = "";
-        }
-        return $var;
-    }
-    
-    public function getSqlConsulta(){
-        return $this->mcons->getConsult();
+    public function getResult($consulta = ""){
+        if($consulta == "") return $this->con->getAll();
+        return $this->con->recuperar($consulta);      
     }
     
     public function getlink(){
         $cons = $v = "";
-        $sql  = $this->getSqlConsulta();
+        $sql  = $this->$this->con->getConsult();
         foreach($sql as $sq){
             $cons .= $v .base64_encode($sq);
             $v = ";";

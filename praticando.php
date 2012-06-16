@@ -1,7 +1,4 @@
-<?php
-define('showall', true);
-require_once 'init.php';
-?>
+<?php require_once 'init.php'; ?>
 <html>
     <head>
         <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
@@ -97,22 +94,18 @@ require_once 'init.php';
                 <div id="tabs">
                     <ul>
                         <li><a class='tablink' href="#tabs-1">Resultado</a></li>
-                        <?php if(geografico || showall){?><li><a class='tablink' href="#tabs-2">Mapa</a></li><?php }?>
+                        <?php if(geografico){?><li><a class='tablink' href="#tabs-2">Mapa</a></li><?php }?>
                         <li><a class='tablink' href="#tabs-3">Schema</a></li>
                         <li><a class='tablink' href="#tabs-4">Tutorial</a></li>
                     </ul>
                     <div id="tabs-1">
                         <div id="mainlayer" class="mainlayer border bg"><table></table><?php if(isset($result)) echo $result; ?></div>
                     </div>
-                    <?php if(geografico && showall){ ?>
+                    <?php if(geografico){ ?>
                     <div id="tabs-2">
                         <div id="maps" class="mainlayer border bg"><?php if(isset($map)) echo $map; ?></div>
                     </div>
-                    <?php }elseif(showall){ ?>
-                    <div id="tabs-2">
-                        <div id="maps" class="mainlayer border bg"><?php echo file_get_contents('plugins/svgpan/tiger.svg'); ?></div>
-                    </div>
-                    <?php }?>
+                    <?php } ?>
                     <div id="tabs-3">
                         <div id="schema" class="mainlayer border bg"><?php if(isset($schema)) echo $schema; ?></div>
                     </div>
@@ -121,15 +114,13 @@ require_once 'init.php';
                     </div>
                     
                     <div id="formulario" class="border bg">
-                        <form action="?action=consultar" method="post" id="target">
+                        <form action="lib/ajax/consulta.php" method="post" id="form">
                             <textarea name="consulta" id="tcons" class="border"><?php echo $first; ?></textarea>
                             <br/>
-                            <input type="submit" value="consultar" id="other"/>
+                            <input type="submit" value="consultar" id="button"/>
                         </form>
                     </div>
                 </div>
-                
-                
             </div>
         </div>
     </body>

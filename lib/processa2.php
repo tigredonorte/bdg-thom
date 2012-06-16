@@ -23,9 +23,11 @@ if(!empty ($temp)){
         $layers[] = base64_decode($id);
 
         if(geografico)
-            $map .= $svg->draw($id, $array['mapa'], 600, 100, 5);
+            $map .= $svg->draw($id, $array['map'], 600, 100, 5);
+        
     }
     $first  = end($layers);
+    //$layers = array_reverse($layers);
 }
 
 $tags = $sobj->getTags();

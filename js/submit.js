@@ -1,4 +1,50 @@
+$(document).ready(function(){
+    $('#form').submit(function() {
+          var id = window.btoa($('#tcons').val());
+          var contains = 0;
+          $('#sortable a').each(function(){
+              if($(this).attr('href') == id){
+                  $(this).parent().fadeOut('fast').fadeIn('fast');
+                  contains = 1;
+              }
+          });
+          
+          $('.tablesorter').fadeOut('slow');
+          $('g').fadeOut('slow');
+          $('g').each(function(){
+              $(this).fadeIn('slow');
+          });
+          
+          if(contains == 0){
+              $.ajax({
+                    url: $('#'+form.id).attr('action'),
+                    type: 'POST',
+                    data: $('#'+form.id).serialize(),
+                    dataType: 'json',
+                    success: function(json) {
+                        for(var i in json){
+                            $("#"+i).append(json[i]);
+                            //$("#"+i).append(json[i]).fadeIn('slow');
+                        }
+                        //jpickeraction();
+                        //$('.colorSelector', data).jPicker();
+                    },
+                    error: function(erro){
+                        alert("Erro na comunicação com o site");
+                    }
+              });
+          }
+          
+          $('#'+id).each(function(){
+              $(this).fadeIn('slow');
+          });
+          return false;
+          
+    });
+});
+
 $('.selecionar').live('click', function(){
+    //alert($(this).attr('id'));
     $(this).removeClass('selecionar');
     $(this).addClass('select');
     $(this).addClass('select');

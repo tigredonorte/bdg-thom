@@ -1,6 +1,9 @@
 <?php
 require_once dirname(__FILE__).'/classes/controllerClass.php';
 require_once dirname(__FILE__).'/database/'.$_SESSION['sgbd'].'/connection.php';
+require_once dirname(__FILE__).'/classes/viewClass.php';
+
+$vobj = new view();
 $sobj = new controllerClass();
 
 $schema = $sobj->genSchema();
@@ -12,7 +15,11 @@ if(method_exists($sobj, $action)){
 $result = $first = $map = "";
 $layers = array();
 
-$temp = $sobj->getResult('');
+$result = $sobj->getResult('');
+$result = $vobj->prepare($result);
+//print_r($result);
+extract($result);
+/*
 if(!empty ($temp)){
     $table = new tableClass();
     $svg   = new svgClass();
@@ -27,7 +34,7 @@ if(!empty ($temp)){
     }
     $first  = end($layers);
 }
-
+*/
 $tags = $sobj->getTags();
 
 ?>

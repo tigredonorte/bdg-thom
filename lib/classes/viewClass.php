@@ -3,22 +3,32 @@
 class view{
     
     public function prepare($result){
-        if(!empty ($temp)){
+        
+        $resultado = $map = $layer = $tmp_res = "";
+        $out = array();
+        if(!empty ($result)){
             $table = new tableClass();
             $svg   = new svgClass();
 
-            foreach($temp as $id => $array){
-                $result .= "Consulta realizada em: ".$array['time'] . "<hr/>";
-                $result .= $table->draw($array['res'], $id);
-                $layers[] = base64_decode($id);
+            foreach($result as $id => $array){
+                $tmp         = "Consulta realizada em: ".$array['time'] . "<hr/>";
+                $resultado[] = $tmp . $table->draw($array['res'], $id);
+                $layer     = base64_decode($id);
+                $layers[]  = $layer;
 
-                if(geografico)
-                    $map .= $svg->draw($id, $array['map'], 600, 100, 5);
+                if(geografico){
+                    $map .= $svg->draw($id, $array['mapa'], 600, 100, 5);
+                }
 
             }
-            $this->first  = end($layers);
-            //$layers = array_reverse($layers);
+            //$resultado = array_reverse($resultado);
+            if(geografico)
+            $out['map']    = $map;
+            $out['result'] = implode(" ",$resultado);
+            $out['first']  = $layer;
+            $out['layers'] = $layers;
         }
+        return $out;
     }
     
     public function drawLayers($layers){

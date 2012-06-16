@@ -24,6 +24,8 @@ if(geografico){
     $var['maps'] = $svg->draw($key, $resultado['mapa'], 600, 100, 5);
 }
 
+$view = new view();
+$view->sortable($key, $consulta);
 //gera a interface
 $link    = "?consulta=$key";
 $acoes   = "<a href='$link&action=recuperaconsulta' class='action'><img src='img/btn_editar.png'/></a>";

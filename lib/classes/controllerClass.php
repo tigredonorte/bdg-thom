@@ -31,7 +31,7 @@ class controllerClass{
             $map[$cons] = $temp['mapa'];
         }
         
-        $var = $this->svg->drawMultiple($map, 300, 100, 2);
+        $var = $this->svg->drawMultiple($map, 700, 100, 9);
         die($var);
     }
     

@@ -11,8 +11,8 @@ class view{
             
             $table = new tableClass();
             foreach($result as $id => $array){
-                $tmp         = "Consulta realizada em: ".$array['time'] . "<hr/>";
-                $resultado[] = $tmp . $table->draw($array['res'], $id);
+                $tmp         = "<div class='$id'>Consulta realizada em: ".$array['time'] . "<hr/>";
+                $resultado[] = $tmp . $table->draw($array['res'], $id) . "</div>";
                 $layer     = base64_decode($id);
                 $layers[]  = $layer;
 
@@ -53,8 +53,8 @@ class view{
             <div class='acoes'>
                 <a href='$link&action=recuperaconsulta' class='action'><img src='img/btn_editar.png'/></a>";
             if(geografico){
-                $var .= "<a class='action colorSelector bgcolor' id='bg_$key'></a>";
-                $var .= "<a class='action colorSelector licolor' id='li_$key'></a>";
+                $var .= "<a class='action colorSelector bgcolor' id='_$key'></a>";
+                $var .= "<a class='action colorSelector licolor' id='_$key'></a>";
             }    
             $var .= "<a href='$link&action=apagaconsulta' class='action'><img src='img/btn_excluir.png'/></a>
             </div>

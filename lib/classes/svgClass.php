@@ -32,8 +32,11 @@ class svgClass{
     }
 
     //(VI) Esta funcao sera chamada apos todas as linhas retornadas no passo V terem sido colocadas no array $path_array
-    public function configureGroup($id, $path_array, $x_translate = "0", $y_translate = "0", $scale = "1"){
-            $result = "<g id='$id' transform=\"translate($x_translate,$y_translate) scale($scale)\"> ";
+    public function configureGroup($id, $path_array, $x_translate = "0", $y_translate = "0", $scale = "1", 
+            $stroke = "black", $stroke_width = "0.005cm", $stroke_opacity="1.0", $fill="none", $fill_opacity="0.0"){
+            $result = "<g class='$id' stroke=\"$stroke\" stroke-width=\"$stroke_width\" 
+                          stroke-opacity=\"$stroke_opacity\" fill=\"$fill\" fill-opacity=\"$fill_opacity\"
+                          transform=\"translate($x_translate,$y_translate) scale($scale)\"> ";
             foreach($path_array as $path){
                 if(count($path) > 1) echo "oh?";
                 $path    = array_shift($path);
@@ -44,11 +47,10 @@ class svgClass{
     }
 
     //(V) Esta funcao sera chamada para cada linha da coluna retornada no passo III, colocando os resultados em um array
-    public function configurePath($path, $stroke = "black", $stroke_width = "0.005cm", $stroke_opacity="1.0", $fill="none", $fill_opacity="0.0"){
+    public function configurePath($path){
             static $id = 0;
             $id += 1;
-            return "<path id=\"$id\" class='path' stroke=\"$stroke\" stroke-width=\"$stroke_width\" 
-                          stroke-opacity=\"$stroke_opacity\" fill=\"$fill\" fill-opacity=\"$fill_opacity\" d=\"$path\" />";
+            return "<path id=\"$id\" class='path' d=\"$path\" />";
     }
 
     

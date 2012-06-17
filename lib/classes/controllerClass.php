@@ -53,9 +53,9 @@ class controllerClass{
     
     public function getlink(){
         $cons = $v = "";
-        $sql  = $this->$this->con->getConsult();
-        foreach($sql as $sq){
-            $cons .= $v .base64_encode($sq);
+        $sql  = $this->con->recuperar('');
+        foreach($sql as $var => $sq){
+            $cons .= $v .$var;
             $v = ";";
         }
         $sgbd = $_SESSION['sgbd'];

@@ -1,4 +1,5 @@
 <?php
+ini_set("memory_limit", "512M");
 
 if(!isset($_POST)) { die();}
 session_start();
@@ -20,7 +21,7 @@ $resultado = $sobj->consultar();
 
 //faz o desenho dos itens da consulta
 $key = base64_encode($_POST['consulta']);
-$var['mainlayer'] = $table->draw($resultado['res'], $key);
+$var['mainlayer'] = $view->TableTime($table, $key, $resultado['time'], $resultado['res']);
 if(geografico){
     $svg = new svgClass();
     $var['svgmap'] = $svg->draw($key, $resultado['mapa'], 600, 100, 5);

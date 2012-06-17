@@ -4,15 +4,16 @@ $(document).ready(function() {
 
 function jpickeraction(id, carc){
     var cid   = carc+id;
-    var color = getColor();
+    //var color = getColor() + '99';
     $(cid).jPicker({
         window:{
+            alphaSupport: true,
             expandable: true,
             position:{x: 'screenCenter',y: 'screenCenter'}
         },
         color:{
-            alphaSupport: true,
-            active: new $.jPicker.Color({ahex: color +'99'})
+            
+            active: new $.jPicker.Color({ahex: '993300CC'})
         },
         images: {clientPath: 'plugins/jpicker/images/'}
     }, 

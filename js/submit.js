@@ -1,17 +1,24 @@
 $(document).ready(function(){
     
     $('#form').submit(function() {
+        
+          //recupera o id do item e faz um sase64 decode
           var id = window.btoa($('#tcons').val());
-          var contains = 0;
+          var contains = 0; //variavel que indica se a consulta já está na tela
+          
+          //procura na tela a consulta realizada
           $('#sortable a').each(function(){
               if($(this).attr('href') == id){
+                  //se encontrou faz o item piscar
                   $(this).parent().fadeOut('fast').fadeIn('fast');
                   contains = 1;
               }
           });
           
-          $('.tablesorter').fadeOut('slow');
+          //esconde 
+          $('.table-container').fadeOut('slow');
           $('g').each(function(){
+              alert('to aki');
               $(this).fadeOut('slow');
           });
           
@@ -45,11 +52,8 @@ $(document).ready(function(){
         else $('.' + id).fadeOut('fast');
         
     });
-    
+    //alert(primeiro_layer);
     $('.'+primeiro_layer).fadeIn('fast');
-    
-    
-    
 });
 
 $('.selecionar').live('click', function(){

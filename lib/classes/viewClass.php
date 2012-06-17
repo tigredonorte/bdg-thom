@@ -11,8 +11,7 @@ class view{
             
             $table = new tableClass();
             foreach($result as $id => $array){
-                $tmp         = "<div class='$id'>Consulta realizada em: ".$array['time'] . "<hr/>";
-                $resultado[] = $tmp . $table->draw($array['res'], $id) . "</div>";
+                $resultado[] = $this->TableTime($table, $id, $array['time'], $array['res']);
                 $layer     = base64_decode($id);
                 $layers[]  = $layer;
 
@@ -30,6 +29,11 @@ class view{
             $out['map'] = $svg->configureSVG($map);
         
         return $out;
+    }
+    
+    public function TableTime($table, $id, $time, $res){
+        $tmp = "<div class='table-container $id'>Consulta realizada em: $time s <hr/>";
+        return $tmp . $table->draw($res, $id) . "</div>";
     }
     
     public function drawLayers($layers){

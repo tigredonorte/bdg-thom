@@ -1,4 +1,5 @@
 <?php
+ini_set("memory_limit", "512M");
 require_once 'sqlClass.php';
 require_once 'svgClass.php';
 require_once 'consultaClass.php';

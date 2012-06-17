@@ -12,7 +12,6 @@ $(document).ready(function(){
           
           $('.tablesorter').fadeOut('slow');
           $('g').each(function(){
-              alert($(this).attr('id'));
               $(this).fadeOut('slow');
           });
           
@@ -25,10 +24,8 @@ $(document).ready(function(){
                     success: function(json) {
                         for(var i in json){
                             $("#"+i).append(json[i]);
-                            //$("#"+i).append(json[i]).fadeIn('slow');
                         }
-                        //jpickeraction();
-                        //$('.colorSelector', data).jPicker();
+                        jpickeraction();
                     },
                     error: function(erro){
                         alert("Erro na comunicação com o site");
@@ -36,9 +33,7 @@ $(document).ready(function(){
               });
           }
           
-          $('#'+id).each(function(){
-              $(this).fadeIn('slow');
-          });
+          $('.'+id).fadeIn('slow');
           return false;
           
     });
@@ -46,11 +41,14 @@ $(document).ready(function(){
     var primeiro_layer = 0;
     $('.layer').each(function(){
         var id = $(this).children('a').attr('href');
-        if(primeiro_layer == 0)
-            primeiro_layer = 1;
-        else
-            $('#' + id).fadeOut();
+        if(primeiro_layer == 0) primeiro_layer = id;
+        else $('.' + id).fadeOut('fast');
+        
     });
+    
+    $('.'+primeiro_layer).fadeIn('fast');
+    
+    
     
 });
 

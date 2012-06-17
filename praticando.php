@@ -79,7 +79,7 @@
                         <li><a class='tablink' href="#tabs-4">Tutorial</a></li>
                     </ul>
                     <div id="tabs-1">
-                        <div id="mainlayer" class="mainlayer border bg"><table></table><?php if(isset($result)) echo $result; ?></div>
+                        <div id="mainlayer" class="mainlayer border bg"><?php if(isset($result)) echo $result; ?></div>
                     </div>
                     <?php if(geografico){ ?>
                     <div id="tabs-2">

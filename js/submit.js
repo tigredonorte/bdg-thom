@@ -105,7 +105,7 @@ $(function() {
 $('#merge').live('click', function(){
     var varr = 'merge.php?action=merge&consult=';
     $('.ativo').each(function(index) {
-        varr += $(this).parent().attr('href') + ";";
+        varr += $(this).parent().parent().attr('id') + ";";
     });
     $(this).attr('href', varr);
 });

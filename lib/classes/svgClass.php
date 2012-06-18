@@ -2,6 +2,30 @@
 
 class svgClass{
     
+    
+    private $session = "colors";   
+    private $default = array();   
+    public function __construct() {
+        
+        //cria a classe de session
+        if(!isset($_SESSION[$this->session])) $_SESSION[$this->session] = array();
+        $this->default = array(
+            'stroke'         => "black",
+            'stroke_width'   => "0.005cm", 
+            'stroke_opacity' => "1.0", 
+            'fill'           => "none", 
+            'fill_opacity'   => "0.0"
+        );
+        
+    }
+    
+    public function setLineColor($id, $alpha, $color){
+        $session = new sessionClass();
+        $var = array('alpha' => $alpha, 'color' => $color);
+        $session->compress($res);
+        $_SESSION[$this->session][$id] = $var;
+    }
+    
     public function draw($id, $array, $x_translate = "0", $y_translate = "0", $scale = "1"){
         $var = $this->configureGroup($id, $array, $x_translate, $y_translate, $scale);
         return $var;
@@ -32,8 +56,10 @@ class svgClass{
     }
 
     //(VI) Esta funcao sera chamada apos todas as linhas retornadas no passo V terem sido colocadas no array $path_array
-    public function configureGroup($id, $path_array, $x_translate = "0", $y_translate = "0", $scale = "1", 
-            $stroke = "black", $stroke_width = "0.005cm", $stroke_opacity="1.0", $fill="none", $fill_opacity="0.0"){
+    public function configureGroup($id, $path_array, $x_translate = "0", $y_translate = "0", $scale = "1"){
+            
+            $params = $this->getColor($id);
+            extract($params);
             $result = "<g class='$id' stroke=\"$stroke\" stroke-width=\"$stroke_width\" 
                           stroke-opacity=\"$stroke_opacity\" fill=\"$fill\" fill-opacity=\"$fill_opacity\"
                           transform=\"translate($x_translate,$y_translate) scale($scale)\"> ";
@@ -53,11 +79,28 @@ class svgClass{
             return "<path id=\"$id\" class='path' d=\"$path\" />";
     }
 
+    public function setColor($id, $array){        
+        //unset($_SESSION[$this->session]);
+        //cria a variavel de sessao vazia
+        $session = array();
+        
+        //carrega os valores já setados na session ou seta os valores default
+        if(isset($_SESSION[$this->session][$id])) $session = $_SESSION[$this->session][$id];
+        else $session = $this->default;
+        
+        foreach($array as $name => $value)
+            if($value != "" && array_key_exists ($name, $this->default)) $session[$name] = $value;
+            
+        $_SESSION[$this->session][$id] = $session;
+    }   
     
-
-    
-    
-   
+    public function getColor($id){
+        return (
+            array_key_exists($id, $_SESSION[$this->session])?
+            $_SESSION[$this->session][$id]:
+            $this->default
+       );
+    }
 
 }
 

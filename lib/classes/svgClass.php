@@ -101,6 +101,18 @@ class svgClass{
             $this->default
        );
     }
+    
+    public function getAllConfig(){
+        $session = serialize($_SESSION[$this->session]);
+        $session = urlencode($session);
+        return $session;
+    }
+    
+    public function restoreColors($colors){
+        $colors  = urldecode($colors);
+        $session = unserialize($colors);
+        $_SESSION[$this->session] = $session;
+    }
 
 }
 

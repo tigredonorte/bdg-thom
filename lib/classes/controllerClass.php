@@ -53,14 +53,16 @@ class controllerClass{
     }
     
     public function getlink(){
-        $cons = $v = "";
+        $cons = $v = $color = "";
         $sql  = $this->con->recuperar('');
         foreach($sql as $var => $sq){
             $cons .= $v .$var;
             $v = ";";
         }
+        
+        $color = $this->svg->getAllConfig();
         $sgbd = $_SESSION['sgbd'];
-        $link = "<div style='width: 600px;'>".URL ."/praticando.php?sgbd=$sgbd&action=consultbylink&multicons=$cons</div>";
+        $link = "<div style='width: 600px;'>".URL ."/praticando.php?sgbd=$sgbd&action=consultbylink&multicons=$cons&color=$color</div>";
         die($link);
     }
     
@@ -73,6 +75,9 @@ class controllerClass{
                 $_POST['consulta'] = base64_decode($cons);
                 $this->consultar($cons);
             }
+        }
+        if(isset($_GET['color'])) {
+            $this->svg->restoreColors($_GET['color']);
         }
         $this->redirect(URL);
     }

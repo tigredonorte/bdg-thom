@@ -38,8 +38,8 @@ class controllerClass{
     
     //apaga uma consulta caso ela exista
     public function apagaconsulta(){
-        if(isset($_GET['consulta'])){
-            $this->con->apagar($_GET['consulta']);
+        if(isset($_REQUEST['consulta'])){
+            $this->con->apagar($_REQUEST['consulta']);
         }
     }
        

@@ -2,13 +2,14 @@ $(document).ready(function(){
     
     $('#form').submit(function() {
         
-          //recupera o id do item e faz um sase64 decode
+          //recupera o id do item e faz um base62 decode
           var id = window.btoa($('#tcons').val());
           var contains = 0; //variavel que indica se a consulta já está na tela
           
           //procura na tela a consulta realizada
           $('#sortable a').each(function(){
-              if($(this).attr('href') == id){
+              if($(this).parent().attr('id') == id){
+              //if($(this).attr('href') == id){
                   //se encontrou faz o item piscar
                   $(this).parent().fadeOut('fast').fadeIn('fast');
                   contains = 1;
@@ -16,9 +17,10 @@ $(document).ready(function(){
           });
           
           //esconde 
-          $('.table-container').fadeOut('slow');
+          $('.table-container').each(function(){
+              $(this).fadeOut('slow');
+          });
           $('g').each(function(){
-              alert('to aki');
               $(this).fadeOut('slow');
           });
           
@@ -29,9 +31,14 @@ $(document).ready(function(){
                     data: $('#'+form.id).serialize(),
                     dataType: 'json',
                     success: function(json) {
+                        var g = parseSVG(json.svgmap);
+                        $('#svgmap').append(g);
+                        json.svgmap = "";
+                        
                         for(var i in json){
-                            $("#"+i).append(json[i]);
+                           if(json[i] != "")$("#"+i).append(json[i]);
                         }
+                        showbyid(id, 'l');
                         jpickeraction();
                     },
                     error: function(erro){
@@ -39,21 +46,26 @@ $(document).ready(function(){
                     }
               });
           }
-          
-          $('.'+id).fadeIn('slow');
+          showbyid(id);
           return false;
           
     });
     
-    var primeiro_layer = 0;
+    
     $('.layer').each(function(){
-        var id = $(this).children('a').attr('href');
-        if(primeiro_layer == 0) primeiro_layer = id;
-        else $('.' + id).fadeOut('fast');
-        
+        var id = $(this).attr('id');
+        $('.'+id).each(function(){
+            if($(this).hasClass("layer")){}
+            else $(this).fadeOut();
+        });
+        $('#'+id).each(function(){
+            if($(this).hasClass("layer")){}
+            else $(this).fadeOut();
+        });
     });
-    //alert(primeiro_layer);
-    $('.'+primeiro_layer).fadeIn('fast');
+    
+    var primeiro_layer = getFirst();
+    showbyid(primeiro_layer);
 });
 
 $('.selecionar').live('click', function(){
@@ -68,8 +80,6 @@ $('.selecionar').live('click', function(){
         $(this).removeClass("consultaativa");
     });
     $(this).addClass("consultaativa");
-    
-    //atualiza($(this).attr('href'));
     return false;
 });
 
@@ -83,50 +93,14 @@ $('.select').live('click', function(){
         $(this).removeClass("consultaativa");
     });
     $(this).addClass("consultaativa");
-    
-    //atualiza($(this).attr('href'));
     return false;
 });
 
 $(function() {
-    //$( "#sortable" ).sortable({beforeStop: function(event, ui) { atualiza(); }});
     $( "#sortable" ).sortable();
     $( "#sortable" ).disableSelection();
 });
 
-function atualiza(atualiza){
-    var concat = "";
-    if(atualiza == ''){
-        $('.select').each(function(index) {
-            if(concat != "") concat = concat + ";"+ $(this).attr("href");
-            else concat = $(this).attr("href");
-        });
-    }else{concat = atualiza;}
-    $.ajax({
-        url: 'lib/actions/ajax.php',
-        type: 'POST',
-        data: {consulta: concat},
-        dataType: 'json',
-        success: function(json) {
-            
-            $("#mainlayer").html('');
-            $("#tcons").html('');
-            $.each(json.consulta, function(index, value) {
-                
-                $("#tcons").append(value+'\n');
-            });
-            
-            $.each(json.resultado, function(index, value) {
-                $("#mainlayer").append(value);
-            });
-           // alert(json.response);
-        },
-        error: function(erro){
-            alert("Erro na comunicação com o site");
-        }
-    });
-
-}
 
 $('#merge').live('click', function(){
     var varr = 'merge.php?action=merge&consult=';

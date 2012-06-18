@@ -47,20 +47,19 @@ class view{
         return $var;
     }
     
-    public function sortable($key, $consulta){
-        $link    = "?consulta=$key";                   
+    public function sortable($key, $consulta){                
         $var = "
-        <li class='layer border'>
-            <a href='$key' class='selecionar'>
+        <li id='$key' class='layer border'>
+            <a href='#' class='selecionar'>
                 <div class='item bg bg-hover'>". nl2br($consulta)."</div>
             </a>
             <div class='acoes'>
-                <a href='$link&action=recuperaconsulta' class='action'><img src='img/btn_editar.png'/></a>";
+                <a href='#' class='recupera_consulta action'><img src='img/btn_editar.png'/></a>";
             if(geografico){
                 $var .= "<a class='action colorSelector bgcolor' id='_$key'></a>";
                 $var .= "<a class='action colorSelector licolor' id='_$key'></a>";
             }    
-            $var .= "<a href='$link&action=apagaconsulta' class='action'><img src='img/btn_excluir.png'/></a>
+            $var .= "<a href='#' class='apaga_consulta action'><img src='img/btn_excluir.png'/></a>
             </div>
         </li>
         ";

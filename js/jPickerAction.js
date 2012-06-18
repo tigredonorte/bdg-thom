@@ -23,9 +23,8 @@ function jpickeraction(id, carc){
         var all    = color.val('all');
         var cvalue = (all && '#' + all.hex || 'none');
         var alpha  = (all && all.a + '%' || 'none');
-        var id     = $(this).attr('id').toString().replace('_', '');
+        var id     = $(this).parent().parent().attr('id');
         var classe = '';
-        
         
         if($(this).hasClass( 'bgcolor' )){
             classe = 'bgcolor';
@@ -42,6 +41,7 @@ function jpickeraction(id, carc){
                    $(this).attr('fill', cvalue);
                    $(this).attr('fill-opacity', alpha);
                }
+               return;
            } 
         });
         

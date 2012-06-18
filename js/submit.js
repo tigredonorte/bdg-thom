@@ -40,6 +40,13 @@ $(document).ready(function(){
                         }
                         showbyid(id, 'l');
                         jpickeraction("colorSelector", '.');
+                        $('g').each(function(){
+                           var classe = $(this).attr('class');
+                           if(id == classe){
+                               var myid = $(this).attr('id');
+                               pan_atualiza(myid, 'svgmap')
+                           }
+                        });
                     },
                     error: function(erro){
                         alert("Erro na comunicação com o site");

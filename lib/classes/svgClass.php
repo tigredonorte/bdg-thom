@@ -57,10 +57,11 @@ class svgClass{
 
     //(VI) Esta funcao sera chamada apos todas as linhas retornadas no passo V terem sido colocadas no array $path_array
     public function configureGroup($id, $path_array, $x_translate = "0", $y_translate = "0", $scale = "1"){
-            
+            static $unique = 0;
+            $unique++;
             $params = $this->getColor($id);
             extract($params);
-            $result = "<g class='$id' stroke=\"$stroke\" stroke-width=\"$stroke_width\" 
+            $result = "<g id='g_$unique' class='$id' stroke=\"$stroke\" stroke-width=\"$stroke_width\" 
                           stroke-opacity=\"$stroke_opacity\" fill=\"$fill\" fill-opacity=\"$fill_opacity\"
                           transform=\"translate($x_translate,$y_translate) scale($scale)\"> ";
             foreach($path_array as $path){

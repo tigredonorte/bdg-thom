@@ -10,9 +10,7 @@
         <link rel='stylesheet' type='text/css' href='js/redmond/jquery-ui.custom.css' media='screen'/>
         <script type="text/javascript" src="js/jquery-latest.min.js"></script>
         <script type="text/javascript" src="js/jqueryui.min.js"></script>
-        <script type="text/javascript" src="js/base62.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
-        <script type="text/javascript" src="js/submit.js"></script>
         <script type="text/javascript" src="js/recupera_consulta.js"></script>
         
         <script type="text/javascript">
@@ -45,10 +43,13 @@
         <script type="text/javascript" src="js/raphael_example.js"></script>-->
         <script type="text/javascript" src="plugins/jpicker/jpicker-1.1.6.min.js"></script>
         <script type="text/javascript" src="js/jPickerAction.js"></script>
+        <script type="text/javascript" src="plugins/svgpan-talos/d3.js"></script>
+        <script type="text/javascript" src="plugins/svgpan-talos/jquery-svgpan.min.js"></script>
+        <script type="text/javascript" src="js/svgpanActions.js"></script>
         <link rel="stylesheet" media="screen" type="text/css" href="plugins/jpicker/css/jPicker-1.1.6.min.css" />
         <link rel="stylesheet" media="screen" type="text/css" href="css/colorselector.css" />
         <?php } ?>
-        <script type="text/javascript" src="plugins/svgpan/SVGPan.js"></script>
+        <script type="text/javascript" src="js/submit.js"></script>
     </head>
     <body>
         <div id="tudo">

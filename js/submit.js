@@ -39,7 +39,7 @@ $(document).ready(function(){
                            if(json[i] != "")$("#"+i).append(json[i]);
                         }
                         showbyid(id, 'l');
-                        jpickeraction();
+                        jpickeraction("colorSelector", '.');
                     },
                     error: function(erro){
                         alert("Erro na comunicação com o site");

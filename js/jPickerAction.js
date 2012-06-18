@@ -4,6 +4,7 @@ $(document).ready(function() {
 
 function jpickeraction(id, carc){
     var cid   = carc+id;
+    
     //var color = getColor() + '99';
     $(cid).jPicker({
         window:{
@@ -66,6 +67,13 @@ function jpickeraction(id, carc){
            } 
         });
 
+    });
+    
+    $(cid).each(function(){
+        if($(this).hasClass('colorSelector')){
+            $(this).addClass('jpicker_active');
+            $(this).removeClass('colorSelector');
+        }
     });
 }
 

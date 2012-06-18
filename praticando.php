@@ -1,5 +1,6 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
 <?php require_once 'init.php'; ?>
-<html>
+
     <head>
         <meta http-equiv="Content-Type"     content="text/html; charset=utf-8" />
         <link rel='stylesheet' type='text/css' href='css/classes.css' media='screen'/>
@@ -9,7 +10,11 @@
         <link rel='stylesheet' type='text/css' href='js/redmond/jquery-ui.custom.css' media='screen'/>
         <script type="text/javascript" src="js/jquery-latest.min.js"></script>
         <script type="text/javascript" src="js/jqueryui.min.js"></script>
+        <script type="text/javascript" src="js/base62.js"></script>
+        <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/submit.js"></script>
+        <script type="text/javascript" src="js/recupera_consulta.js"></script>
+        
         <script type="text/javascript">
             $(document).ready(function() {
                 $( "#tabs" ).tabs({event: "mouseover"}).find( ".ui-tabs-nav" ).sortable({ axis: "x" });

@@ -58,14 +58,14 @@ class sessionClass{
         return $map;
     }
     
-    private function compress($res){
+    public function compress($res){
         if($res == "") return "";
         $res = serialize($res);
         $res = gzcompress($res);
         return $res;
     }
     
-    private function uncompress($res){
+    public function uncompress($res){
         if($res == "") return "";
         $res = gzuncompress($res);
         $res = unserialize($res);

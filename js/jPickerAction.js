@@ -28,8 +28,29 @@ function jpickeraction(id, carc){
         
         if($(this).hasClass( 'bgcolor' )){
             classe = 'bgcolor';
+            $.ajax({
+                url: 'lib/ajax/savecolor.php',
+                type: 'POST',
+                data: {stroke: cvalue, stroke_opacity: alpha, id: id},
+                dataType: 'json',
+                error: function(erro){
+                    alert("Erro na comunicação com o site");
+                }
+            });
         }else if($(this).hasClass( 'licolor' )){
             classe = 'licolor';
+            $.ajax({
+                url: 'lib/ajax/savecolor.php',
+                type: 'POST',
+                data: {fill: cvalue, fill_opacity: alpha, id: id},
+                dataType: 'json',
+                success: function(json) {
+                    
+                },
+                error: function(erro){
+                    alert("Erro na comunicação com o site");
+                }
+            });
         }
         
         $('g').each(function(){
@@ -44,8 +65,7 @@ function jpickeraction(id, carc){
                return;
            } 
         });
-        
-        
+
     });
 }
 
